@@ -17,7 +17,15 @@ MSSV: DTC235200522
 ### 4.2 Sơ đồ DevOps Workflow
 `Developer` --(git push)--> `GitHub Repo` --> `GitHub Actions Runner` --> `GitHub Pages (Live)`
 
-### 4.3 Trả lời câu hỏi
-1. **Tự động hóa các bước:** Kiểm tra file (Validate HTML), build, chép file sang branch `gh-pages` và phát hành website.
-2. **Quay lại phiên bản cũ:** Dùng lệnh `git revert <commit_id>` rồi `git push`, pipeline sẽ tự deploy lại bản cũ.
-3. **Tiết kiệm thời gian:** Tiết kiệm khoảng 95% thời gian (rút ngắn từ 15-30 phút xuống còn ~10 giây).
+### 4.3 Trả lời câu hỏi củng cố
+
+1. **DevOps workflow tự động hóa những bước nào mà cách thủ công phải làm bằng tay?**
+   * **Trả lời:** Tự động hóa toàn bộ các bước **Build, Test (Validate) và Deploy**. Cụ thể: GitHub Actions tự động kiểm tra sự tồn tại của file `index.html`, kiểm tra dung lượng file, đóng gói mã nguồn và đẩy lên nhánh `gh-pages` để phát hành website công khai mà không cần con người can thiệp thủ công.
+
+2. **Nếu bạn deploy sai (website bị lỗi), làm sao để quay lại phiên bản cũ?**
+   * **Trả lời:** Thực hiện lệnh `git revert <commit_id_lỗi>` (hoặc `git reset --hard <commit_id_tốt>`) trên máy local để đưa mã nguồn về phiên bản hoạt động tốt trước đó, sau đó chạy `git push origin main`. Pipeline GitHub Actions sẽ ngay lập tức tự động chạy lại và deploy bản cũ lên website.
+
+3. **GitHub Actions pipeline đã giúp bạn tiết kiệm bao nhiêu thời gian so với cách thủ công?**
+   * **Trả lời:**
+     * **Cách thủ công:** Tốn **15 – 30 phút** (phải mở phần mềm FTP/SFTP upload file lên server, cấu hình thư mục, kiểm tra đường dẫn).
+     * **Cách DevOps (CI/CD):** Chỉ tốn **~10 giây** gõ lệnh `git push`, toàn bộ các bước còn lại hệ thống tự động hoàn thành 100%.
